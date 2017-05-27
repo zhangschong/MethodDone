@@ -68,6 +68,9 @@ public class DefaultMethodFinder implements IMethodFinder {
         if (params != null) {
             paramsTypes = new Class[params.length];
             for (int i = 0, j = params.length; i < j; i++) {
+                if (params[i] == null) {
+                    continue;
+                }
                 paramsTypes[i] = params[i].getClass();
             }
         }
@@ -146,6 +149,9 @@ public class DefaultMethodFinder implements IMethodFinder {
     private static boolean checkParams(Class[] paramsRequest, Class[] paramsCache) {
         for (int i = 0, count = paramsCache.length; i < count; i++) {
             Class requestType = paramsRequest[i];
+            if (requestType == null) {
+                continue;
+            }
             Class cacheType = paramsCache[i];
             //如果是基本类型，就转换成对应的包装类型
             if (cacheType.isPrimitive()) {
