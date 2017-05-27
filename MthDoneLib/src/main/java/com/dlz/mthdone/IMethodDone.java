@@ -15,6 +15,11 @@ import static com.dlz.mthdone.rm.IRunnableManager.Factory.TYPE_THREAD;
 
 public interface IMethodDone extends IManager {
 
+    /**
+     * 当发生错误时会回调此方法,如果该instance没有,则不回调
+     */
+    String CALL_BACK_ERR = "onMethodDoneErr";
+
     /** 主线程 */
     int THREAD_TYPE_MAIN = TYPE_MAIN;
     /** 异步数据流处理 */
@@ -32,8 +37,33 @@ public interface IMethodDone extends IManager {
      */
     void doIt(@NonNull Object instance, @NonNull String mthTag, Object... parameters);
 
+    /**
+     * 执行方法
+     * @param instance
+     * @param mthTag
+     * @param parameters
+     * @throws Exception
+     */
+    void doItWithException(@NonNull Object instance, @NonNull String mthTag, Object... parameters) throws Exception;
+
+
+    class Error {
+        public final Object mInstance;
+        public final String mMethodTag;
+        public final Throwable mThrowable;
+
+        Error(Object instance, String mthTag, Throwable throwable) {
+            this.mInstance = instance;
+            this.mMethodTag = mthTag;
+            this.mThrowable = throwable;
+        }
+
+    }
+
+
     class Factory {
-        public static final IMethodDone MethodDone = new MethodDone();
+        public static final com.dlz.mthdone.IMethodDone MethodDone = new MethodDone();
+
         static {
             MethodDone.init();
         }
