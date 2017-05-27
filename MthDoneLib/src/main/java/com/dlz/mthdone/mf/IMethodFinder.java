@@ -13,11 +13,11 @@ public interface IMethodFinder extends IManager {
 
     /**
      * 方法获取
-     * @param cls
+     * @param clazz
      * @param methodName
-     * @param parameters
+     * @param params
      */
-    Method findMethod(Class cls, String methodName, Object... parameters) throws Exception;
+    Method findMethod(Class clazz, String methodName, Object... params) throws Exception;
 
 
     class Factory{
