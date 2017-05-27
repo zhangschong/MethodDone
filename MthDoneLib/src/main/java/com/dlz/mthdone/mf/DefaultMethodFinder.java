@@ -167,7 +167,9 @@ public class DefaultMethodFinder implements IMethodFinder {
      * @return
      */
     private static Class convertPrimitive(Class clazz) {
-        if (clazz == char.class) {
+        if (clazz == byte.class) {
+            return Byte.class;
+        } else if (clazz == char.class) {
             return Character.class;
         } else if (clazz == int.class) {
             return Integer.class;
