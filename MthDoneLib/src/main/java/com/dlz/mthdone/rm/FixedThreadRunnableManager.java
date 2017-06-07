@@ -1,5 +1,7 @@
 package com.dlz.mthdone.rm;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,5 +26,24 @@ public class FixedThreadRunnableManager implements IRunnableManager{
     @Override
     public void doRunnable(Runnable runnable) throws Exception {
         mFixedThreadExecutor.submit(runnable);
+    }
+
+    /**
+     * 延时执行
+     * @param runnable
+     * @param delay
+     * @throws Exception
+     */
+    @Override
+    public void doRunnable(final Runnable runnable, long delay) throws Exception {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                mFixedThreadExecutor.submit(runnable);
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(task, delay);
     }
 }

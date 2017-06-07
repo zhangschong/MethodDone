@@ -25,15 +25,15 @@ public class MethodDoneTest {
         assertTrue(mLocker.isUnLock());
     }
 
-    @MethodTag(threadType = IMethodDone.THREAD_TYPE_THREAD)
+    @MethodTag(threadType = IMethodDone.THREAD_TYPE_IO)
     private void testtest(int a1){
         Log.e("Leon","testtest int" + Thread.currentThread().getId());
         MethodDone.doIt(this,"test2");
     }
 
+    @MethodTag(threadType = IMethodDone.THREAD_TYPE_MAIN, threadDelayTime = 2000)
     private void test2(){
         Log.e("Leon","test2 " + Thread.currentThread().getId());
         mLocker.unlock();
     }
-
 }

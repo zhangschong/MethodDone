@@ -24,4 +24,10 @@ public @interface MethodTag {
      *
      */
     int threadType() default IMethodDone.THREAD_TYPE_MAIN;
+
+    /**
+     * 线程延时执行时间
+     * @return
+     */
+    long threadDelayTime() default 0;
 }
