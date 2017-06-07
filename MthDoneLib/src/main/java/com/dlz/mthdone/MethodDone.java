@@ -85,11 +85,13 @@ class MethodDone implements IMethodDone {
     private void doMethodInner(@NonNull Object instance, Method method, Object... parameters) {
         try {
             int threadType = THREAD_TYPE_MAIN;
+            long threadDelayTime = 0;
             MethodTag tag = method.getAnnotation(MethodTag.class);
             if (null != tag) {
                 threadType = tag.threadType();
+                threadDelayTime = tag.threadDelayTime();
             }
-            mRunnableManagers[threadType].doRunnable(mNodeManager.pullT().setData(instance, method, parameters));
+            mRunnableManagers[threadType].doRunnable(mNodeManager.pullT().setData(instance, method, parameters), threadDelayTime);
         } catch (Exception e) {
             err(instance, method.getName(), e);
         }
