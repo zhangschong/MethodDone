@@ -21,19 +21,19 @@ public class MethodDoneTest {
     public void testMethodDone(){
         Log.e("Leon","testMethodDone");
         MethodDone.doIt(this,"testtest",1);
-        mLocker.lock(10*1000);
         assertTrue(mLocker.isUnLock());
+        mLocker.lock(10*1000);
     }
 
-    @MethodTag(threadType = IMethodDone.THREAD_TYPE_THREAD)
+    @MethodTag(threadType = IMethodDone.THREAD_TYPE_MAIN, threadDelayTime = 3000)
     private void testtest(int a1){
         Log.e("Leon","testtest int" + Thread.currentThread().getId());
         MethodDone.doIt(this,"test2");
     }
 
+    @MethodTag(threadType = IMethodDone.THREAD_TYPE_THREAD)
     private void test2(){
         Log.e("Leon","test2 " + Thread.currentThread().getId());
         mLocker.unlock();
     }
-
 }
